@@ -50,3 +50,8 @@ def delete_files_with_more_than_256_lines(folder_path):
             if len(lines) > 256:
                 os.remove(file_path)
                 print(f"Deleted {filename} because it has more than 256 lines.\n")
+
+def clean_filename(name):
+    # 移除非法字符并替换为有效字符，例如将斜杠替换为空格
+    cleaned_name = re.sub(r'[\\/]', '', name)
+    return cleaned_name

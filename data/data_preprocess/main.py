@@ -7,7 +7,7 @@ net_name = []
 net_numbers = []
 fs_path = "PointNetCap/data/originFile/fs_1.txt"
 case_path = "PointNetCap/data/originFile/case1.txt"
-folder_name = "database"
+folder_name = "database3"
 
 with open(fs_path, 'r', encoding='utf-8') as file:
     for line in file:
