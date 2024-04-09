@@ -5,8 +5,8 @@ json_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_data.json'
 with open(json_file_path, 'r') as json_file:
     data = json.load(json_file)
 
-threshold = 40000    # 构造边的距离阈值
-up_threshold = 100000
+threshold = 1000    # 构造边的距离阈值
+up_threshold = 10000
 layer_distance = 0.144
 data_list = []
 
@@ -49,6 +49,6 @@ for item in tqdm(data, desc="Processing nets"):
                         break   # 当前的net已经加入到耦合关系中，跳到下一个net
     data_list.append(entry)
 
-json_dir = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_relation.json'
+json_dir = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_relation_1000_10000.json'
 with open(json_dir, 'w') as file:
     json.dump(data_list, file, indent=4)
