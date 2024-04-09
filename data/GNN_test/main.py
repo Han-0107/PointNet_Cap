@@ -1,12 +1,10 @@
 import json
 import numpy as np
 
-# 文件路径定义
 json1_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/real_relation.json'
 json2_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/cap_relation.json'
 json3_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/real_relation_cap.json'
 
-# 数据加载
 with open(json1_file_path, 'r') as file:
     data1 = json.load(file)  # 真实的耦合关系数据
 with open(json2_file_path, 'r') as file:
@@ -14,7 +12,6 @@ with open(json2_file_path, 'r') as file:
 with open(json3_file_path, 'r') as file:
     data3 = json.load(file)  # 耦合关系值数据
 
-# 构建net_num到value的映射
 value_data = {}
 for key, entries in data3.items():
     value_data[key] = {entry["net_num"]: entry["value"] for entry in entries}
