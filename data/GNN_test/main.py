@@ -1,7 +1,7 @@
 import json
 
 json1_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/real_relation.json'
-json2_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_relation_7000_20000.json'
+json2_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_relation_10000_100000.json'
 
 key = 2  # 输入第一个net的编号
 gnn_right_counter = 0  # GNN预测正确的耦合关系数
