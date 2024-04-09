@@ -68,6 +68,6 @@ for name, capacitance, num in zip(net_name, net_capacitance, net_numbers):
     data_list.append(entry)
 
 # 写入包含所有数据的 JSON 文件
-json_dir = 'PointNetCap/data/GNN_test/cap_data.json'
+json_dir = 'PointNetCap/data/GNN_test/files/cap_data.json'
 with open(json_dir, 'w') as file:
     json.dump(data_list, file, indent=4)

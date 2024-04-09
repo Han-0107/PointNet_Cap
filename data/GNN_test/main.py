@@ -1,20 +1,30 @@
 import json
+import numpy as np
 
-json1_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/real_relation.json'
-json2_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/cap_relation_10000_100000.json'
+# 文件路径定义
+json1_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/real_relation.json'
+json2_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/cap_relation.json'
+json3_file_path = '/ugra/yhhan/PointNetCap/data/GNN_test/files/real_relation_cap.json'
+
+# 数据加载
+with open(json1_file_path, 'r') as file:
+    data1 = json.load(file)  # 真实的耦合关系数据
+with open(json2_file_path, 'r') as file:
+    data2 = json.load(file)  # GNN预测的耦合关系数据
+with open(json3_file_path, 'r') as file:
+    data3 = json.load(file)  # 耦合关系值数据
+
+# 构建net_num到value的映射
+value_data = {}
+for key, entries in data3.items():
+    value_data[key] = {entry["net_num"]: entry["value"] for entry in entries}
+
+cap_relation_data = {item["number"]: item["cap_relation"] for item in data2}
 
 key = 2  # 输入第一个net的编号
 gnn_right_counter = 0  # GNN预测正确的耦合关系数
 gnn_total_counter = 0  # GNN预测的耦合关系总数
 real_total_number = 0  # 真实的耦合关系总数
-
-with open(json1_file_path, 'r') as file:
-    data1 = json.load(file)  # 真实的耦合关系数据
-
-with open(json2_file_path, 'r') as file:
-    data2 = json.load(file)  # GNN预测的耦合关系数据
-
-cap_relation_data = {item["number"]: item["cap_relation"] for item in data2}
 
 while True:
     key_str = str(key)
@@ -25,17 +35,27 @@ while True:
         if key_str in cap_relation_data:
             predicted_relation_set = set(cap_relation_data[key_str])
             gnn_total_counter += len(predicted_relation_set)
-            gnn_right_counter += len(real_relation_set & predicted_relation_set) 
+            correct_predictions = real_relation_set & predicted_relation_set
+            gnn_right_counter += len(correct_predictions)
 
-        key += 1  
+            missed_predictions = real_relation_set - predicted_relation_set
+            missed_info = []
+            for item in missed_predictions:
+                if item in value_data[key_str]:
+                    missed_info.append(value_data[key_str][item])
+        key += 1
     else:
         break
 
 # 计算准确率
-accuracy = gnn_right_counter / gnn_total_counter
+accuracy = gnn_right_counter / gnn_total_counter if gnn_total_counter > 0 else 0
 print(f"Accuracy: {accuracy*100:.2f}%")
 
 # 输出所有结果
 print(f"GNN预测正确的耦合关系数: {gnn_right_counter}")
 print(f"GNN预测的耦合关系总数: {gnn_total_counter}")
 print(f"真实的耦合关系总数: {real_total_number}")
+
+# 输出未被估计到的电容平均值
+result = np.mean(missed_info)
+print(f"未被估计到的电容平均值: {result}")
