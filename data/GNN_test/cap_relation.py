@@ -6,7 +6,7 @@ with open(json_file_path, 'r') as json_file:
     data = json.load(json_file)
 
 threshold = 1000    # 构造边的距离阈值
-up_threshold = 50000
+up_threshold = 100000
 layer_distance = 0.144
 data_list = []
 
