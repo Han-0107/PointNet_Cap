@@ -19,8 +19,8 @@ for key, entries in data3.items():
 # cap_relation_data = {item["number"]: item["cap_relation"] for item in data2}
 
 key = 2  # 输入第一个net的编号
-gnn_right_counter = 0  # StarRC预测正确的耦合关系数
-gnn_total_counter = 0  # StarRC预测的耦合关系总数
+star_right_counter = 0  # StarRC预测正确的耦合关系数
+star_total_counter = 0  # StarRC预测的耦合关系总数
 real_total_number = 0  # 真实的耦合关系总数
 missed_info = []
 while True:
@@ -31,9 +31,9 @@ while True:
 
         if key_str in data2:
             predicted_relation_set = set(data2[key_str])
-            gnn_total_counter += len(predicted_relation_set)
+            star_total_counter += len(predicted_relation_set)
             correct_predictions = real_relation_set & predicted_relation_set
-            gnn_right_counter += len(correct_predictions)
+            star_right_counter += len(correct_predictions)
 
             missed_predictions = real_relation_set - predicted_relation_set
             
@@ -45,12 +45,12 @@ while True:
         break
 
 # 计算准确率
-accuracy = gnn_right_counter / gnn_total_counter if gnn_total_counter > 0 else 0
+accuracy = star_right_counter / star_total_counter if star_total_counter > 0 else 0
 print(f"Accuracy: {accuracy*100:.2f}%")
 
 # 输出所有结果
-print(f"StarRC预测正确的耦合关系数: {gnn_right_counter}")
-print(f"StarRC预测的耦合关系总数: {gnn_total_counter}")
+print(f"StarRC预测正确的耦合关系数: {star_right_counter}")
+print(f"StarRC预测的耦合关系总数: {star_total_counter}")
 print(f"真实的耦合关系总数: {real_total_number}")
 
 # 输出未被估计到的电容平均值
