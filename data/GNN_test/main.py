@@ -22,7 +22,7 @@ key = 2  # 输入第一个net的编号
 gnn_right_counter = 0  # GNN预测正确的耦合关系数
 gnn_total_counter = 0  # GNN预测的耦合关系总数
 real_total_number = 0  # 真实的耦合关系总数
-
+missed_info = []
 while True:
     key_str = str(key)
     if key_str in data1:
@@ -36,7 +36,7 @@ while True:
             gnn_right_counter += len(correct_predictions)
 
             missed_predictions = real_relation_set - predicted_relation_set
-            missed_info = []
+            
             for item in missed_predictions:
                 if item in value_data[key_str]:
                     missed_info.append(value_data[key_str][item])

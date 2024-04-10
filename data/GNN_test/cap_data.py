@@ -7,7 +7,6 @@ net_name = []
 net_numbers = []
 fs_path = "PointNetCap/data/originFile/fs_1.txt"
 case_path = "PointNetCap/data/originFile/case1.txt"
-folder_name = "database3"
 
 with open(fs_path, 'r', encoding='utf-8') as file:
     for line in file:
@@ -44,12 +43,6 @@ for section in matches:
         value.append(result)
     all_value.append(value)    
     all_name.append(name)     
-
-current_directory = "PointNetCap/data/"
-target_directory = os.path.join(current_directory, folder_name)
-
-if not os.path.exists(target_directory):
-    os.makedirs(target_directory)
 
 data_list = []
 for name, capacitance, num in zip(net_name, net_capacitance, net_numbers):
